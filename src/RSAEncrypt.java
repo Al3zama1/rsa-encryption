@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -12,7 +12,6 @@ public class RSAEncrypt {
 	
 	public static void breakIntoBlocks(String data) {
 		Map<Character, Integer> map = new HashMap<>();
-		DecimalFormat formatter = new DecimalFormat("00");
 		
 		
 		map.put('a', 0);
@@ -102,45 +101,100 @@ public class RSAEncrypt {
 			
 			
 		}
+				
 		
-		for (int i = 0; i < lettersConverted.length; i++) {
-			System.out.println(lettersConverted[i]);
-		}
+		
+		BigInteger e = new BigInteger("1775");
+		
+		
+		
+		BigInteger n = new BigInteger("8138453");
+		
+		
+		encyptMessage(lettersConverted, e, n);
+		
 		
 				
 		
 		
 	}
 	
+	public static void encyptMessage(String[] bytes, BigInteger e, BigInteger n) {
+		String c = "";
+				
+		for (int i = 0; i < bytes.length; i++) {
+			int numberValue = Integer.parseInt(bytes[i]);
+			BigInteger temp = new BigInteger(String.valueOf(numberValue)).modPow(e, n);
+			
+			c += String.valueOf(temp);
+			
+			if (i + 1 != bytes.length) {
+				c += " ";
+			}
+		}
+		
+		System.out.println(c);
+		
+		
+		try {
+			File f = new File("text.enc");
+			f.createNewFile();
+			
+			FileWriter w = new FileWriter("text.enc");
+			w.write(c);
+			
+			w.close();
+		} catch(Exception error) {
+			error.printStackTrace();
+		}
+		
+		
+
+	}
+	
 	public static void main(String[] args) {	
 		
-		breakIntoBlocks("this is an example");
-		
-//		if (args.length == 2) {
-//			
+//		String text = "When a Gamertag comes up as violating our policies for online behavior the person who owns that Gamertag is punished by being banned from the service Keep in mind this is not just a ban on a particular game This is a ban on the Xbox Live service as a whole so you will not be able to go online at all during your ban";
+//		
+//		text = "this is an example";
 //
-//			
-//			try {
-//				String data = null;
-//				File message = new File(args[0]);
-//				Scanner reader = new Scanner(message);
-//				
-//				while (reader.hasNextLine()) {
-//					data = reader.nextLine();
-//				}
-//				
-//				breakIntoBlocks(data);
-//				reader.close();
-//				
-//				File pkey = new File(args[1]);
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//		} else {
-//			System.err.println("Incorrect parameters.Enter name of file with message, and name of file with public key");
-//		}
+//		
+//		breakIntoBlocks(text.toLowerCase());
+		
+		
+//		
+		if (args.length == 2) {
+			
+
+			
+			try {
+				String text = null;
+				File message = new File(args[0]);
+				Scanner reader = new Scanner(message);
+				
+				while (reader.hasNextLine()) {
+					text = reader.nextLine();
+				}
+				
+				breakIntoBlocks(text);
+				reader.close();
+				
+				File pubkey = new File(args[1]);
+				
+				Scanner pubReader = new Scanner(pubkey);
+				String e = pubReader.nextLine().substring(4);
+
+				
+
+				pubReader.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} else {
+			System.err.println("Incorrect parameters.Enter name of file with message, and name of file with public key");
+		}
 	}
 
 }
