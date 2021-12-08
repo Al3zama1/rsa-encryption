@@ -10,7 +10,7 @@ public class RSAEncrypt {
 	
 
 	
-	public static void breakIntoBlocks(String data) {
+	public static void breakIntoBlocks(String data, BigInteger e, BigInteger n) {
 		Map<Character, Integer> map = new HashMap<>();
 		
 		
@@ -104,12 +104,9 @@ public class RSAEncrypt {
 				
 		
 		
-		BigInteger e = new BigInteger("1775");
+
 		
-		
-		
-		BigInteger n = new BigInteger("8138453");
-		
+
 		
 		encyptMessage(lettersConverted, e, n);
 		
@@ -133,7 +130,7 @@ public class RSAEncrypt {
 			}
 		}
 		
-		System.out.println(c);
+		
 		
 		
 		try {
@@ -154,9 +151,9 @@ public class RSAEncrypt {
 	
 	public static void main(String[] args) {	
 		
-//		String text = "When a Gamertag comes up as violating our policies for online behavior the person who owns that Gamertag is punished by being banned from the service Keep in mind this is not just a ban on a particular game This is a ban on the Xbox Live service as a whole so you will not be able to go online at all during your ban";
+		String text = "When a Gamertag comes up as violating our policies for online behavior the person who owns that Gamertag is punished by being banned from the service Keep in mind this is not just a ban on a particular game This is a ban on the Xbox Live service as a whole so you will not be able to go online at all during your ban";
 //		
-//		text = "this is an example";
+		text = "this is an example";
 //
 //		
 //		breakIntoBlocks(text.toLowerCase());
@@ -168,7 +165,7 @@ public class RSAEncrypt {
 
 			
 			try {
-				String text = null;
+		
 				File message = new File(args[0]);
 				Scanner reader = new Scanner(message);
 				
@@ -176,13 +173,16 @@ public class RSAEncrypt {
 					text = reader.nextLine();
 				}
 				
-				breakIntoBlocks(text);
+				
 				reader.close();
 				
 				File pubkey = new File(args[1]);
 				
 				Scanner pubReader = new Scanner(pubkey);
-				String e = pubReader.nextLine().substring(4);
+				BigInteger e = new BigInteger(pubReader.nextLine().substring(4));
+                BigInteger n = new BigInteger(pubReader.nextLine().substring(4));
+                
+                breakIntoBlocks(text, e, n);
 
 				
 
