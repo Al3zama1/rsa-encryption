@@ -41,6 +41,8 @@ public class RSAEncrypt {
 		map.put('y', 24);
 		map.put('z', 25);
 		map.put(' ', 26);
+		map.put('.', 27);
+		map.put(',', 28);
 
 		int chunkLen = 3;
 		
@@ -122,7 +124,6 @@ public class RSAEncrypt {
 		String c = "";
 				
 		
-		System.out.println("THIS IS THE START OF THE MATH TRANSFORMATION");
 		for (int i = 0; i < bytes.length; i++) {
 			int numberValue = Integer.parseInt(bytes[i]);
 			BigInteger temp = new BigInteger(String.valueOf(numberValue)).modPow(e, n);
@@ -160,10 +161,16 @@ public class RSAEncrypt {
 //		try {
 //			File text = new File("message.txt");
 //			Scanner reader = new Scanner(text);
-//			String data = reader.nextLine();
+//			String data = "";
+//			
+//			while (reader.hasNextLine()) {
+//				data += reader.nextLine();
+//			
+//			}
+//			
+//			
 //			reader.close();
 //			
-//			System.out.println(data);
 //			
 //			breakIntoBlocks(data.toLowerCase(), new BigInteger("2175"), new BigInteger("7917751"));
 //		} catch (FileNotFoundException error) {

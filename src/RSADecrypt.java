@@ -77,6 +77,8 @@ public class RSADecrypt {
 		map.put(24, 'y');
 		map.put(25, 'z');
 		map.put(26, ' ');
+		map.put(27, '.');
+		map.put(28, ',');
 		
 		String message = "";
 
@@ -124,7 +126,7 @@ public class RSADecrypt {
 		
 
 		
-		
+
 		if (args.length == 2) {
 			
 			try {
