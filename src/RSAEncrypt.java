@@ -185,13 +185,13 @@ public class RSAEncrypt {
 			
 			try {
 				
-				String text = null;
+				String text = "";
 		
 				File message = new File(args[0]);
 				Scanner reader = new Scanner(message);
 				
 				while (reader.hasNextLine()) {
-					text = reader.nextLine();
+					text += reader.nextLine();
 				}
 				
 				
