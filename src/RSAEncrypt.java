@@ -101,6 +101,8 @@ public class RSAEncrypt {
 			
 			
 		}
+		
+		
 				
 		
 		
@@ -119,9 +121,12 @@ public class RSAEncrypt {
 	public static void encyptMessage(String[] bytes, BigInteger e, BigInteger n) {
 		String c = "";
 				
+		
+		System.out.println("THIS IS THE START OF THE MATH TRANSFORMATION");
 		for (int i = 0; i < bytes.length; i++) {
 			int numberValue = Integer.parseInt(bytes[i]);
 			BigInteger temp = new BigInteger(String.valueOf(numberValue)).modPow(e, n);
+			
 			
 			c += String.valueOf(temp);
 			
@@ -151,20 +156,29 @@ public class RSAEncrypt {
 	
 	public static void main(String[] args) {	
 		
-		String text = "When a Gamertag comes up as violating our policies for online behavior the person who owns that Gamertag is punished by being banned from the service Keep in mind this is not just a ban on a particular game This is a ban on the Xbox Live service as a whole so you will not be able to go online at all during your ban";
-//		
-		text = "this is an example";
-//
-//		
-//		breakIntoBlocks(text.toLowerCase());
+		
+//		try {
+//			File text = new File("message.txt");
+//			Scanner reader = new Scanner(text);
+//			String data = reader.nextLine();
+//			reader.close();
+//			
+//			System.out.println(data);
+//			
+//			breakIntoBlocks(data.toLowerCase(), new BigInteger("2175"), new BigInteger("7917751"));
+//		} catch (FileNotFoundException error) {
+//			error.printStackTrace();
+//		}
 		
 		
-//		
+
 		if (args.length == 2) {
 			
 
 			
 			try {
+				
+				String text = null;
 		
 				File message = new File(args[0]);
 				Scanner reader = new Scanner(message);
@@ -182,7 +196,7 @@ public class RSAEncrypt {
 				BigInteger e = new BigInteger(pubReader.nextLine().substring(4));
                 BigInteger n = new BigInteger(pubReader.nextLine().substring(4));
                 
-                breakIntoBlocks(text, e, n);
+                breakIntoBlocks(text.toLowerCase(), e, n);
 
 				
 

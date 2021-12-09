@@ -19,14 +19,23 @@ public class RSADecrypt {
 		String p = "";
 		
 		
+		
 		for (int i = 0; i < cipherBlocks.length; i++) {
 			intBlocks[i] = new BigInteger(cipherBlocks[i]).modPow(d, n);
-			p += String.valueOf(intBlocks[i]);
+			String val = String.valueOf(intBlocks[i]);
+			
+			while (val.length() < 6) {
+				val = "0" + val;
+			}
+
+			p += String.valueOf(val);
 			
 			if (i + 1 != cipherBlocks.length) {
 				p += " ";
 			}
 		}
+		
+	
 		
 	
 		
@@ -77,8 +86,8 @@ public class RSADecrypt {
 			
 			message += map.get(Integer.parseInt(str.substring(0, 2)));
 			message += map.get(Integer.parseInt(str.substring(2, 4)));
-			message += map.get(Integer.parseInt(str.substring(4,  6)));
-			
+			message += map.get(Integer.parseInt(str.substring(4)));	
+		
 			
 		}
 		
@@ -100,8 +109,20 @@ public class RSADecrypt {
 	}
 	
 	public static void main(String[] args) {
-//		decypher();
 		
+		
+//		try {
+//			File cipher = new File("text.enc");
+//			Scanner reader = new Scanner(cipher);
+//			String data = reader.nextLine();
+//			reader.close();
+//			decypher(new BigInteger("2386303"), new BigInteger("7917751"), data);
+//		} catch (FileNotFoundException error) {
+//			error.printStackTrace();
+//		}
+		
+		
+
 		
 		
 		if (args.length == 2) {
